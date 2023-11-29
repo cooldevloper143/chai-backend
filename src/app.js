@@ -11,7 +11,7 @@ app.use(
   }));
 
 app.use(express.json({
-  limit: "20kb",
+  limit: "10mb",
 }));
 
 
@@ -25,9 +25,9 @@ app.use(cookieParser({
 
 app.use(express.urlencoded({
   extended: true,
-  limit: "20kb",
+  limit: "10mb", // This limit is more appropriate for multipart/form-data
   parameterLimit: 5000,
-  type: "application/x-www-form-urlencoded",
+  type: "application/x-www-form-urlencoded", // Correct content type for URL-encoded data
   verify: (req, res, buf) => {
     const urlencoded = buf.toString();
     if (urlencoded.length > 5000) {
@@ -37,6 +37,7 @@ app.use(express.urlencoded({
     }
   },
 }));
+
 app.use(express.static("public"));
 app.use(express.text({
   type: "text/plain",
